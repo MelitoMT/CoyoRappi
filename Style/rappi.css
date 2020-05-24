@@ -29,17 +29,20 @@ h1{
 ul li{
     display: inline-block;
 }
-.nav,.over{
+.cliente a{
+  color: rgb(0, 0, 0);
+}
+.adm a{
+  color: rgb(255, 255, 255);
+}
+.nav{
     text-decoration: none;
     padding: 5px 20px;
 }
-ul li.nav a{
-    background: linear-gradient(rgb(0, 41, 131), rgb(0, 0, 0));
+
+.over a{
+    background:  linear-gradient(rgb(0, 41, 131), rgb(0, 0, 0));
     color: rgb(255, 255, 255);
-}
-ul li.over a{
-    background: linear-gradient(rgb(255, 138, 5), rgb(230, 197, 16));
-    color: rgb(0, 0, 0);
 }
 #block{
     background: rgb(240, 233, 233);
