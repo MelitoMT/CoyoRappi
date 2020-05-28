@@ -1,0 +1,71 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Verdana, Helvetica, sans-serif;
+}
+.img1-section{
+    background-image: url('../Media/prepa3.jpg');
+    height: 60vh;
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    align-items: center;
+    display:flex ;
+}
+h1{
+    text-align: center;
+    margin-left: 10%;
+}
+.section {
+    padding: 25px 40px;
+    text-align: center;
+}
+.squares{
+    background: rgb(240, 233, 233);
+}
+
+ul li{
+    display: inline-block;
+}
+.cliente a{
+  color: rgb(0, 0, 0);
+}
+.adm a{
+  color: rgb(255, 255, 255);
+}
+.nav{
+    text-decoration: none;
+    padding: 5px 20px;
+}
+
+.over a{
+    background:  linear-gradient(rgb(0, 41, 131), rgb(0, 0, 0));
+    color: rgb(255, 255, 255);
+}
+#block{
+    background: rgb(240, 233, 233);
+    display: flex;
+    height: 30vh;
+  }
+  #block div{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin:2.5%;
+    border-radius: 15px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+  .client{
+    background: linear-gradient(rgb(255, 138, 5), rgb(230, 197, 16));
+  }
+  .adm{
+    color: white;
+    background: linear-gradient(rgb(0, 41, 131), rgb(0, 0, 0));
+  }
+  .sup{
+    background: linear-gradient(rgb(255, 138, 5), rgb(230, 197, 16));
+  }
