@@ -1,10 +1,10 @@
 <?php
-    echo '<link rel="stylesheet" href="../Style/rappi.css">';   
+    echo '<link rel="stylesheet" href="../Style/rappi.css">';
     echo'<ul>
         <li class="nav"><a class="nav" href="../Templates/CoyoRappi.html">Inicio</a></li>
         <li class="nav"><a class="nav" href="Registro.php">Registrate</a></li>
         <li class="nav"><a class="nav" href="Ingreso.php">Ingresa</a></li>
-        <li class="nav"><a class="nav" href="#">Ayuda</a></li>
+        <li class="nav"><a class="nav" href="../Templates/Ayuda.html">Ayuda</a></li>
     </ul>';
     echo"<br><br><br>";
     echo"<fieldset>";
@@ -56,15 +56,15 @@
                     <input type='text' value='' name='Nombre' required><br>
                     <br>
                     <label>No. de Trabajador<label>
-                    <br> 
+                    <br>
                     <input type='password' value=''>
                     <br>
                     <label>Contraseña<label>
-                    <br>  
+                    <br>
                     <input type='password' value='' name='Contraseña'>
                     <br>
                     <label>Confirmar contraseña<label>
-                    <br>  
+                    <br>
                     <input type='password' value='' name='Contraseña2'><br><br>
                     <input type='hidden' name='tipo' value=".$_POST['tipo'].">
                     <input type='submit' name='Siguiente' value='Siguiente' class='submit'><br>";
