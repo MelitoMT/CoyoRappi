@@ -264,6 +264,8 @@
                       <option value="Administrador"> Administrador </option>
                       <option value="Supervisor"> Supervisor </option>
                       </select>
+                      <br>
+                      <br>
                       <input type="submit" value="Selecciona" class="submit">
                       </form>
                       ';
