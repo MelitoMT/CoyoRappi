@@ -12,36 +12,48 @@
     echo"<br>";
         /* Si ya especifico qué cliente es llega a este condicional */
         if(isset($_POST['tipo']) && $_POST['tipo']!='' ){
+            if(isset($_POST['Siguiente'])){
+                include './AbrirConex.php';
+                include 'functions.php';
+                $contraseña=$_POST['contraseña'];
+                $contraseña2=$_POST['contraseña2'];
+                $nombre=$_POST['nombre'];
+                $usuario=$_POST['usuario'];
+                usuario($usuario,$tipo,$n,$conexion);
+                echo$n;
+                echo"HOLA";
+            }    
             /* Si no es alumno es trbajador o profe/funcionario */
             if(isset($_POST['tipo']) && $_POST['tipo']!='alumno'){
                 if(isset($_POST['tipo']) && $_POST['tipo']!='trabajador'){
                     /* INSERTE REGISTRO DE PROFE Y FUNCIONARIO */
-                    echo"<form method='POST' action='../Templates/CoyoRappi.html'>
+                    echo"<form method='POST' action='Registro.php'>
                     <label>Nombre<label>
                     <br>          
-                    <input type='text' value='' name='Nombre'><br>
+                    <input type='text' value='' name='Nombre' required><br>
                     <label>Colegio<label>
                     <br>  
-                    <input type='text' value='' name='Colegio'><br>
+                    <input type='text' value='' name='Colegio' required><br>
                     <label>RFC<label>
                     <br>  
-                    <input type='password' value='' name='RFC'><br>
+                    <input type='password' value='' name='RFC' required><br>
                     <label>Contraseña<label>
                     <br>  
-                    <input type='password' value='' name='Contraseña'><br>
+                    <input type='password' value='' name='Contraseña' required><br>
                     <label>Confirmar contraseña<label>
                     <br>  
-                    <input type='password' value='' name='Contraseña2'><br><br>
-                    <input type='submit' name='enviar' value='Siguiente' class='submit'><br>
+                    <input type='password' value='' name='Contraseña2' required><br><br>
+                    <input type='hidden' name='tipo' value=".$_POST['tipo'].">
+                    <input type='submit' name='Siguiente' value='Siguiente' class='submit'><br>
                     </form>";
                 }
                 /* Si no es profe es trabajador */
                 else{
                     /* INSERTE REGISTRO DE TRABAJADOR */
-                    echo"<form method='POST' action='../Templates/CoyoRappi.html'>
+                    echo"<form method='POST' action='Registro.php'>
                     <label>Nombre<label>
                     <br> 
-                    <input type='text' value=''>
+                    <input type='text' value='' name='Nombre' required><br>
                     <br>
                     <label>No. de Trabajador<label>
                     <br> 
@@ -54,38 +66,55 @@
                     <label>Confirmar contraseña<label>
                     <br>  
                     <input type='password' value='' name='Contraseña2'><br><br>
-                    <input type='submit' name='enviar' value='Siguiente'><br>";
+                    <input type='hidden' name='tipo' value=".$_POST['tipo'].">
+                    <input type='submit' name='Siguiente' value='Siguiente' class='submit'><br>";
 
                 }
             }
             /* Es alumno */
             else{
                 /* INSERTE REGISTRO DE ALUMNOS */
-                echo"alumno<br>";
-                echo"<form method='POST' action='../Templates/CoyoRappi.html'>
-                <input type='text' value=''>Nombre<br>
-                <input type='text' value=''>Grupo<br>
-                <input type='password' value=''>No. cuenta<br>
-                <input type='password' value=''>contraseña<br>
-                <input type='submit' name='enviar' value='Siguiente'><br>";
+                echo"<form method='POST' action='Regsitro.php'>
+                <label>Nombre<label>
+                <br> 
+                <input type='text' value=''>
+                <br>
+                <label>Grupo<label>
+                <br>
+                <input type='text' value=''>
+                <br>
+                <label>No. de Cuenta<label>
+                <br>
+                <input type='password' value=''>
+                <br>
+                <label>Contraseña<label>
+                <br>  
+                <input type='password' value='' name='Contraseña'>
+                <br>
+                <label>Confirmar contraseña<label>
+                <br>  
+                <input type='password' value='' name='Contraseña2'><br><br>
+                <input type='hidden' name='tipo' value=".$_POST['tipo'].">
+                <input type='submit' name='Siguiente' value='Siguiente' class='submit'><br>";
             }
         }
         /* Si no, aparece este formulario */
         else{
-        echo"Ingrese tipo de usuario:";
-        echo"<br>";
-        echo"<br>";    
-        echo"<form action='Registro.php' method='POST'>
-            <select name='tipo' required>
-                <option value='alumno'> Alumno </option>
-                <option value='profesor'> Profesor </option>
-                <option value='funcionario'> Funcionario </option>
-                <option value='trabajador'> Trabajador </option>
-            </select>
-            <br>
-            <br>
-            <input type='submit' name='Aceptar' value='Aceptar' class='submit'>  
-        </form>";
+            echo"Ingrese tipo de usuario:";
+            echo"<br>";
+            echo"<br>";    
+            echo"<form action='Registro.php' method='POST'>
+                <select name='tipo' required>
+                    <option value='alumno'> Alumno </option>
+                    <option value='profesor'> Profesor </option>
+                    <option value='funcionario'> Funcionario </option>
+                    <option value='trabajador'> Trabajador </option>
+                </select>
+                <br>
+                <br>
+                <input type='submit' name='Aceptar' value='Aceptar' class='submit'>  
+                </form>";
+        }        
     echo"</fieldset>";
-    }
+        
 ?>
