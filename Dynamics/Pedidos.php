@@ -1,3 +1,4 @@
+  
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -7,7 +8,7 @@
     </head>
     <body>
         <?php
-            define('DB','prueba') ;   
+            define('DB','Coyo_Rappi') ;   
             define('PASSWORD','root') ;
             define('USER','root') ;
             define('A','localhost') ;
@@ -17,7 +18,7 @@
                 echo mysqli_connect_errno();
                 exit();
             }
-            $comida="SELECT Nombre FROM Alimento WHERE Disponibilidad >0";
+            $comida="SELECT nombre FROM alimento WHERE disponibilidad >0";
             $menu2=mysqli_query($conexion,$comida);
             $menu3=[];
             while($menu=mysqli_fetch_array($menu2,MYSQLI_NUM)){
@@ -44,22 +45,24 @@
             for($i=0;$i<count($food);$i++){
                 echo"<select name='food[]'>";
                 $n=0;
-                print_r($menu3);        
-                while($n < count($menu3)){
+                print_r($menu3);   
+                echo"<option>".$_POST["food"]."</option>";
+               /*   while($n < count($menu3)){
                     echo"<option value='".$menu3[$n]."'";
                     if($menu3[$n]==$food[$i])
                         echo "selected";
                     echo ">".$menu3[$n]." </option>";
                     $n++;
-                }
+                }*/
                 echo"</select>";
                 echo"<input value=".$cant[$i]." type='number' name='cant[]'>";
                 echo"<br>";           
             }
             /* Primero */
-                echo"<select name='food[]' >";
+                echo"<select name='food[]'>";
                 while($f < count($menu3)){
                 echo"<option value=".$menu3[$f].">".$menu3[$f]." </option>";
+                echo $menu3[$f];
                 $f++;
                 }
                 echo"</select>";
