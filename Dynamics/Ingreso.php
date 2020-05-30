@@ -44,6 +44,7 @@
 
   if (isset($_SESSION['usuario']) && (isset($_SESSION['contrasenia'])))
   {
+    /* AQUIIIIIIIIIIIIIIIIIIIIIIIIIII */
     echo "La sesion de ".$_SESSION['usuario']."  esta activa";
                   if(isset($_POST["close"]))
                   {

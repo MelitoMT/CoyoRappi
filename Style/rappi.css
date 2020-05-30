@@ -13,6 +13,28 @@
   align-items: center;
   justify-content: center;
 }
+#table{
+  border-collapse: collapse;
+  width: 60%;
+}
+#table th {
+  padding-top: 10px;
+  padding-bottom: 10spx;
+  text-align: center;
+  background: linear-gradient(rgb(0, 41, 131), rgb(0, 0, 0));
+  color: white;
+}
+#table tr:nth-child(even){
+  background-color: #f2f2f2;
+}
+#table tr:hover {
+  background: linear-gradient(rgb(255, 138, 5), rgb(230, 197, 16));
+  color: white;
+}
+#table td, #table th {
+  border: 1px solid rgb(0, 0, 0);
+  padding: 8px;
+}
 .img1-section{
   background-image: url('../Media/prepa3.jpg');
   height: 60vh;
