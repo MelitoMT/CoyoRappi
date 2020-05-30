@@ -44,7 +44,6 @@
 
   if (isset($_SESSION['usuario']) && (isset($_SESSION['contrasenia'])))
   {
-    /* AQUIIIIIIIIIIIIIIIIIIIIIIIIIII */
     echo "La sesion de ".$_SESSION['usuario']."  esta activa";
                   if(isset($_POST["close"]))
                   {
@@ -257,6 +256,7 @@
                       echo '
                       <form action="Ingreso.php" method="POST">
                       Ingrese tipo de Usuario:
+                      <br><br>
                       <select name="tipo" required/>
                       <option value="Alumno"> Alumno </option>
                       <option value="Profesor"> Profesor </option>
@@ -265,17 +265,13 @@
                       <option value="Administrador"> Administrador </option>
                       <option value="Supervisor"> Supervisor </option>
                       </select>
-                      <br>
-                      <br>
+                      <br><br>
                       <input type="submit" value="Selecciona" class="submit">
                       </form>
                       ';
                     }
                   }
               }
-
-echo "<br><br>";
-
       /*
       Se ppodría alida$a=[];
       $b=[];
