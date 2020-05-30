@@ -15,20 +15,21 @@
             if(isset($_POST['Siguiente'])){
                 include './AbrirConex.php';
                 include 'functions.php';
-                $contraseña=$_POST['Contraseña'];
-                $contraseña2=$_POST['Contraseña2'];
+                $contraseña=strip_tags($_POST['Contraseña']);
+                $contraseña2=strip_tags($_POST['Contraseña2']);
                 if($contraseña==$contraseña2){
-                    $nombre=$_POST['Nombre'];
-                    $apaterno=$_POST['Apaterno'];
-                    $amaterno=$_POST['Amaterno'];
-                    $usuario=$_POST['Usuario'];
+
+                    $nombre=strip_tags($_POST['Nombre']);
+                    $apaterno=strip_tags($_POST['Apaterno']);
+                    $amaterno=strip_tags($_POST['Amaterno']);
+                    $usuario=strip_tags($_POST['Usuario']);
                     $tipo=$_POST['tipo'];
                     $atributo='';
                     $dato='';
-                    if(isset($_POST['Colegio']) && $_POST['Colegio']!='')
+                    if(isset($_POST['Colegio']))
                     $colegio=$_POST['Colegio'];
                     if(isset($_POST['Grupo']) && $_POST['Grupo']!='')
-                    $grupo=$_POST['Grupo'];
+                    $grupo=strip_tags($_POST['Grupo']);
                     switch ($tipo){
                         case 'alumno':
                             $atributo='id_ncuenta';
@@ -41,14 +42,14 @@
                         case 'profefuncionario':
                             $atributo='id_rfc';
                             $dato='RFC';
-                            break;    
+                            break;
                     }
                     $n=0;
                     $consulta="SELECT * FROM ".$tipo." WHERE ".$atributo."=".$usuario."";
                     $consulta=mysqli_query($conexion, $consulta);
                     if($consulta && mysqli_num_rows($consulta)>0){
                         $n=1;
-                    }        
+                    }
                     if($n==1){
                         mysqli_close($conexion);
                         echo"Ese ".$dato." ya está registrado, inicie sesión o ingrese uno válido.";
@@ -68,7 +69,7 @@
                             case 'profefuncionario':
                                 $insert="INSERT INTO `profefuncionario` (`id_rfc`, `nombre`, `contraseña`, `colegio`, `estado`, `apaterno`, `amaterno`) VALUES ('$usuario', '$nombre', '$contraseña', '$colegio', 'A', '$apaterno', '$amaterno');";
                                 mysqli_query($conexion, $insert);
-                                break;    
+                                break;
                         }
                         mysqli_close($conexion);
                         echo"Se ha registrado correctamente, inicie sesión para continuar";
@@ -78,40 +79,88 @@
                 }
                 else{
                     echo"Las contraseñas no coinciden";
-                }    
-            }    
+                }
+            }
             /* Si no es alumno es trbajador o profe/funcionario */
             if(isset($_POST['tipo']) && $_POST['tipo']!='alumno'){
                 if(isset($_POST['tipo']) && $_POST['tipo']!='trabajador'){
                     /* INSERTE REGISTRO DE PROFE Y FUNCIONARIO */
                     echo"<form method='POST' action='./Registro.php'>
                     <label>Nombre<label>
-                    <br>          
-                    <input type='text' value='' name='Nombre' required>
+                    <br>
+                    <input type='text' value='' name='Nombre' required
+                    pattern='(([A-Z][a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñ ]{2,20}){2})|([A-Z][a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñ]{2,20})'
+                    title='Entre 2-20 caracteres, puedes usar acentos'>
+
                     <br>
                     <label>Apellido Paterno<label>
-                    <br>          
-                    <input type='text' value='' name='Apaterno' required>
+                    <br>
+                    <input type='text' value='' name='Apaterno' required
+                    pattern='(([A-Z][a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñ ]{2,20}){2})|([A-Z][a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñ]{2,20})'
+                    title='Entre 2-20 caracteres, puedes usar acentos'>
                     <br>
                     <label>Apellido Materno<label>
-                    <br>          
-                    <input type='text' value='' name='Amaterno' required>
+                    <br>
+                    <input type='text' value='' name='Amaterno' required
+                    pattern='(([A-Z][a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñ ]{2,20}){2})|([A-Z][a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñ]{2,20})'
+                    title='Entre 2-20 caracteres, puedes usar acentos'>
                     <br>
                     <label>Colegio<label>
-                    <br>  
-                    <input type='text' value='' name='Colegio' required>
+                    <br>
+
+                    <select name='Colegio'>
+
+                      <option value='Fisica'>Física</option>
+                      <option value='Informatica'> Informática</option>
+                      <option value='Matematicas'>Matemáticas</option>
+
+                      <option value='Biologia'> Biología</option>
+                      <option value='EduFisica'>Educación Física</option>
+                      <option value='Morfologia'>Morfología, Fisiología y Salud</option>
+
+                      <option value='OrientacionEdu'>Orientación Educativa</option>
+                      <option value='PsicologiaEHigieneMental'>Psicologia e Higiene Mental</option>
+                      <option value='Quimica'>Química</option>
+
+                      <option value='CienciaSociales'>Ciencias Sociales</option>
+                      <option value='Geografia'>Geografía</option>
+                      <option value='Historia'> Historia</option>
+
+                      <option value='Aleman'> Alemán</option>
+                      <option value='ArtesPlasticas'> Artes Plásticas</option>
+                      <option value='Danza'>Danza</option>
+
+                      <option value='DibujoModelado'>Dibujo y Modelado</option>
+                      <option value='Filosofia'>Filosofía</option>
+                      <option value='Frances'>Francés</option>
+
+                      <option value='Ingles'>Inglés</option>
+                      <option value='Italiano'>Italiano</option>
+                      <option value='LetrasClasicas'>Letras Clásicas</option>
+
+                      <option value='Literatura'>Literatura</option>
+                      <option value='Musica'>Música</option>
+                      <option value='LetrasClasicas'>Teatro</option>
+
+                      <option value='ETE'>Estudios Técnicos Especializados</option>
+
+                   </select>
                     <br>
                     <label>RFC<label>
-                    <br>  
-                    <input type='password' value='' name='Usuario' required>
+                    <br>
+                    <input type='password' value='' name='Usuario' >
                     <br>
                     <label>Contraseña<label>
-                    <br>  
-                    <input type='password' value='' name='Contraseña' required>
+                    <br>
+                    <input type='password' value='' name='Contraseña' required  required pattern='^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$'
+                    title='La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula,
+                   al menos una mayúscula y al menos un caracter no alfanumérico.'>
                     <br>
                     <label>Confirmar contraseña<label>
-                    <br>  
-                    <input type='password' value='' name='Contraseña2' required>
+                    <br>
+                    <input type='password' value='' name='Contraseña2' required required pattern='^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$'
+                    title='La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula,
+                   al menos una mayúscula y al menos un caracter no alfanumérico.'>
                     <br><br>
                     <input type='hidden' name='tipo' value='".$_POST['tipo']."'>
                     <input type='submit' name='Siguiente' value='Siguiente' class='submit'><br>
@@ -122,15 +171,15 @@
                     /* INSERTE REGISTRO DE TRABAJADOR */
                     echo"<form method='POST' action='./Registro.php'>
                     <label>Nombre<label>
-                    <br> 
+                    <br>
                     <input type='text' value='' name='Nombre' required>
                     <br>
                     <label>Apellido Paterno<label>
-                    <br>          
+                    <br>
                     <input type='text' value='' name='Apaterno' required>
                     <br>
                     <label>Apellido Materno<label>
-                    <br>          
+                    <br>
                     <input type='text' value='' name='Amaterno' required><br>
                     <br>
                     <label>No. de Trabajador<label>
@@ -155,16 +204,16 @@
                 /* INSERTE REGISTRO DE ALUMNOS */
                 echo"<form method='POST' action='./Registro.php'>
                 <label>Nombre<label>
-                <br> 
+                <br>
                 <input type='text' value='' name='Nombre' required>
                 <br>
                 <br>
                 <label>Apellido Paterno<label>
-                <br>          
+                <br>
                 <input type='text' value='' name='Apaterno' required>
                 <br>
                 <label>Apellido Materno<label>
-                <br>          
+                <br>
                 <input type='text' value='' name='Amaterno' required>
                 <br>
                 <label>Grupo<label>
@@ -176,11 +225,11 @@
                 <input type='password' value='' name='Usuario' required><br>
                 <br>
                 <label>Contraseña<label>
-                <br>  
+                <br>
                 <input type='password' value='' name='Contraseña' required><br>
                 <br>
                 <label>Confirmar contraseña<label>
-                <br>  
+                <br>
                 <input type='password' value='' name='Contraseña2'><br><br>
                 <input type='hidden' name='tipo' value='".$_POST['tipo']."'>
                 <input type='submit' name='Siguiente' value='Siguiente' class='submit'><br>";
@@ -190,7 +239,7 @@
         else{
             echo"Ingrese tipo de usuario:";
             echo"<br>";
-            echo"<br>";    
+            echo"<br>";
             echo"<form action='Registro.php' method='POST'>
                 <select name='tipo' required>
                     <option value='alumno'> Alumno </option>
@@ -200,9 +249,9 @@
                 </select>
                 <br>
                 <br>
-                <input type='submit' name='Aceptar' value='Aceptar' class='submit'>  
+                <input type='submit' name='Aceptar' value='Aceptar' class='submit'>
                 </form>";
-        }        
+        }
     echo"</fieldset>";
-        
+
 ?>
