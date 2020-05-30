@@ -7,7 +7,11 @@
         <li class="nav"><a class="nav" href="../Templates/Ayuda.html">Ayuda</a></li>
     </ul>';
     echo"<br><br><br>";
-    if(isset($_POST['Siguiente'])){
+    echo"<fieldset>";
+    echo'<img src="../Media/LogoCoyo.png" height="200px">';
+    echo"<br>";
+        if(isset($_POST['tipo']) && $_POST['tipo']!=''){
+            if(isset($_POST['Siguiente'])){
                 include './AbrirConex.php';
                 include 'functions.php';
                 $contraseña=$_POST['Contraseña'];
@@ -199,4 +203,4 @@
                 </form>";
         }
         echo"</fieldset>";
-        ?>
+ ?>
