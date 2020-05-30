@@ -7,7 +7,40 @@
         <li class="nav"><a class="nav" href="./Ayuda.html">Ayuda</a></li>
     </ul>';
     echo"<br><br><br>";
+    echo'<h1><img src="../Media/LogoCoyo.png" height="200px"><h1>';
     include 'AbrirConex.php';
+    if(isset($_POST['Entregado'])){
+        $id_cliente=$_POST['cliente'];
+        $sql="UPDATE pedido SET estado='Entregado' WHERE id_cliente=$id_cliente";
+        mysqli_query($conexion, $sql);
+        echo"Se ha marcado el pedido como entregado.";
+    }
+    if(isset($_POST['Sancionar'])){
+        $tipo=$_POST['tipo'];
+        $usuarioname=$_POST['usuarioname'];
+        echo $tipo;
+        echo"<br>";
+        echo $usuarioname;    
+        $atributo='';
+        switch ($tipo){
+            case 'alumno':
+                $atributo='id_ncuenta';
+                break;
+            case 'trabajador':
+                $atributo='id_ntrabajador';
+                break;
+            case 'profefuncionario':
+                $atributo='id_rfc';
+                break;    
+        }
+        echo $atributo;
+        $sql="UPDATE ".$tipo." SET estado='I' WHERE ".$atributo."=".$usuarioname."";
+        mysqli_query($conexion, $sql);
+        echo"Se ha sancionado al usuario";
+    }
+    echo"<div class='grid'>";
+    echo"<form action='./Sup.php' method='POST'>";
+    echo"<div>";
     $idPedido=0;
     $result="SELECT MAX(id_pedido) FROM pedido";
     $result2=mysqli_query($conexion,$result);
@@ -30,7 +63,7 @@
         $cliente3=mysqli_fetch_array($cliente2,MYSQLI_NUM);
             if($cliente2 && mysqli_num_rows($cliente2)>0){
                 echo"<tr>";
-                    echo"<td><input type='radio' name='cliente' value='".$cliente3['0']."'></td>";
+                    echo"<td><input type='radio' name='cliente' value='".$cliente3[1]."' required></td>";
                     echo"<td>".$cliente3[1]."</td>";
                     echo"<td>";
                         $ida="SELECT id_alimento,cantidad FROM pedido WHERE id_cliente=$i && estado ='Pendiente' ORDER BY id_pedido";
@@ -58,8 +91,26 @@
                     echo"<td>".$cliente3['6']."</td>";
                 echo"</tr>";
                 echo "<br>";
+                $usuariodef=0;
+                $usuario="SELECT tipo_usuario,usuario FROM cliente WHERE id_cliente = $cliente3[1]";
+                $usuario2=mysqli_query($conexion,$usuario);
+                $usuario3=mysqli_fetch_array($usuario2,MYSQLI_NUM);
+                $tipo=$usuario3[0];
+                $usuarioname=$usuario3[1];    
+                echo $tipo;
+                echo"<br>";
+                echo $usuarioname;    
             }
     }
     mysqli_close($conexion);
     echo"</table>";
+    echo"<input type=hidden value='$usuarioname' name='usuarioname'>";
+    echo"<input type=hidden value='$tipo' name='tipo'>";
+    echo"<input type=submit value='Entregado' name='Entregado'>";
+    echo"<input type=submit value='Sancionar' name='Sancionar'>";
+    echo"</div>";
+    echo"<div>";
+    echo"</div>";
+    echo"</form>";
+    echo"<div>";
 ?>

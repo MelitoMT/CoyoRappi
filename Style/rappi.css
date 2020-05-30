@@ -13,9 +13,16 @@
   align-items: center;
   justify-content: center;
 }
+.grid{
+  display: grid;
+  grid-template-columns: auto auto;
+  text-align: center;
+  grid-gap: 0px;
+  padding: 20px;
+} 
 #table{
   border-collapse: collapse;
-  width: 60%;
+  width: 50%;
 }
 #table th {
   padding-top: 10px;
