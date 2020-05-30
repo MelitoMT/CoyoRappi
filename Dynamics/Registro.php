@@ -17,6 +17,7 @@
                 include 'functions.php';
                 $contraseña=strip_tags($_POST['Contraseña']);
                 $contraseña2=strip_tags($_POST['Contraseña2']);
+                
                 if($contraseña==$contraseña2){
 
                     $nombre=strip_tags($_POST['Nombre']);
@@ -26,6 +27,7 @@
                     $tipo=$_POST['tipo'];
                     $atributo='';
                     $dato='';
+                    $cifrado=password_hash($contraseña,PASSWORD_BCRYPT);
                     if(isset($_POST['Colegio']))
                     $colegio=$_POST['Colegio'];
                     if(isset($_POST['Grupo']) && $_POST['Grupo']!='')
@@ -59,7 +61,7 @@
                     else{
                         switch ($tipo){
                             case 'alumno':
-                                $insert="INSERT INTO `alumno` (`id_ncuenta`, `nombre`, `contraseña`, `grupo`, `estado`, `apaterno`, `amaterno`) VALUES ('$usuario', '$nombre', '$contraseña', '$grupo', 'A', '$apaterno', '$amaterno');";
+                                $insert="INSERT INTO `alumno` (`id_ncuenta`, `nombre`, `contraseña`, `grupo`, `estado`, `apaterno`, `amaterno`) VALUES ('$usuario', '$nombre', '$cifrado', '$grupo', 'A', '$apaterno', '$amaterno');";
                                 mysqli_query($conexion, $insert);
                                 break;
                             case 'trabajador':
@@ -148,18 +150,18 @@
                     <br>
                     <label>RFC<label>
                     <br>
-                    <input type='password' value='' name='Usuario' >
+                    <input type='password' value='' name='Usuario' pattern='[A-Z]{4}[0-9]{2}((0)[0-9]|((1)[0-2]))(([0-2][0-9]|(3)[0-1]))\w{3}'>
                     <br>
                     <label>Contraseña<label>
                     <br>
-                    <input type='password' value='' name='Contraseña' required  required pattern='^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$'
-                    title='La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula,
+                    <input type='password' value='' name='Contraseña' required  pattern='^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$'
+                    title='La contraseña debe tener al menos 10 caracteres, al menos un dígito, al menos una minúscula,
                    al menos una mayúscula y al menos un caracter no alfanumérico.'>
                     <br>
                     <label>Confirmar contraseña<label>
                     <br>
-                    <input type='password' value='' name='Contraseña2' required required pattern='^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$'
-                    title='La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula,
+                    <input type='password' value='' name='Contraseña2' required pattern='^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$'
+                    title='La contraseña debe tener al menos 10 caracteres, al menos un dígito, al menos una minúscula,
                    al menos una mayúscula y al menos un caracter no alfanumérico.'>
                     <br><br>
                     <input type='hidden' name='tipo' value='".$_POST['tipo']."'>
@@ -172,27 +174,30 @@
                     echo"<form method='POST' action='./Registro.php'>
                     <label>Nombre<label>
                     <br>
-                    <input type='text' value='' name='Nombre' required>
+                    <input type='text' value='' name='Nombre' required pattern='(([A-Z][a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñ ]{2,20}){2})|([A-Z][a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñ]{2,20})'
+                     title='Entre 2-20 caracteres, puedes usar acentos>
                     <br>
                     <label>Apellido Paterno<label>
                     <br>
-                    <input type='text' value='' name='Apaterno' required>
+                    <input type='text' value='' name='Apaterno' required pattern='(([A-Z][a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñ ]{2,20}){2})|([A-Z][a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñ]{2,20})'
+                    title='Entre 2-20 caracteres, puedes usar acentos>
                     <br>
                     <label>Apellido Materno<label>
                     <br>
-                    <input type='text' value='' name='Amaterno' required><br>
+                    <input type='text' value='' name='Amaterno' required pattern='(([A-Z][a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñ ]{2,20}){2})|([A-Z][a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñ]{2,20})'
+                    title='Entre 2-20 caracteres, puedes usar acentos><br>
                     <br>
                     <label>No. de Trabajador<label>
                     <br>
-                    <input type='password' value='' name='Usuario' required><br>
+                    <input type='password' value='' name='Usuario' required pattern='\d{9}'><br>
                     <br>
                     <label>Contraseña<label>
                     <br>
-                    <input type='password' value='' name='Contraseña' required><br>
+                    <input type='password' value='' name='Contraseña' required pattern='^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$'><br>
                     <br>
                     <label>Confirmar contraseña<label>
                     <br>
-                    <input type='password' value='' name='Contraseña2'>
+                    <input type='password' value='' name='Contraseña2' required='^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$'>
                     <br><br>
                     <input type='hidden' name='tipo' value='".$_POST['tipo']."'>
                     <input type='submit' name='Siguiente' value='Siguiente' class='submit'><br>";
@@ -205,32 +210,35 @@
                 echo"<form method='POST' action='./Registro.php'>
                 <label>Nombre<label>
                 <br>
-                <input type='text' value='' name='Nombre' required>
+                <input type='text' value='' name='Nombre' required pattern='(([A-Z][a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñ ]{2,20}){2})|([A-Z][a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñ]{2,20})'
+                title='Entre 2-20 caracteres, puedes usar acentos'>
                 <br>
                 <br>
                 <label>Apellido Paterno<label>
                 <br>
-                <input type='text' value='' name='Apaterno' required>
+                <input type='text' value='' name='Apaterno' required pattern='(([A-Z][a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñ ]{2,20}){2})|([A-Z][a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñ]{2,20})'
+                title='Entre 2-20 caracteres, puedes usar acentos'>
                 <br>
                 <label>Apellido Materno<label>
                 <br>
-                <input type='text' value='' name='Amaterno' required>
+                <input type='text' value='' name='Amaterno' required pattern='(([A-Z][a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñ ]{2,20}){2})|([A-Z][a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñ]{2,20})'
+                title='Entre 2-20 caracteres, puedes usar acentos'>
                 <br>
                 <label>Grupo<label>
                 <br>
-                <input type='text' value='' name='Grupo'>
+                <input type='text' value='' name='Grupo' pattern='\d{3}'>
                 <br>
                 <label>No. de Cuenta<label>
                 <br>
-                <input type='password' value='' name='Usuario' required><br>
+                <input type='password' value='' name='Usuario' required pattern='\d{9}'><br>
                 <br>
                 <label>Contraseña<label>
                 <br>
-                <input type='password' value='' name='Contraseña' required><br>
+                <input type='password' value='' name='Contraseña' required pattern='^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$'><br>
                 <br>
                 <label>Confirmar contraseña<label>
                 <br>
-                <input type='password' value='' name='Contraseña2'><br><br>
+                <input type='password' value='' name='Contraseña2' required pattern='^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$'><br><br>
                 <input type='hidden' name='tipo' value='".$_POST['tipo']."'>
                 <input type='submit' name='Siguiente' value='Siguiente' class='submit'><br>";
             }
@@ -253,5 +261,4 @@
                 </form>";
         }
     echo"</fieldset>";
-
 ?>

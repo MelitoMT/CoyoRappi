@@ -13,6 +13,7 @@
 
 	session_start();
 
+
 	function cerrarSesion(){
 		session_unset();
 		session_destroy();
@@ -45,7 +46,7 @@
 
 			if (preg_match('/\d{9}/',$numCuenta)){
 				//La usuario cubre lo requerido
-					if (preg_match('/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/',$alumno)){
+					if (preg_match('/^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$/',$alumno)){
 						//La contraseña cubre lo requerido
 						$n=0;
 						$m=0;
@@ -53,21 +54,23 @@
 						$consulta2=mysqli_query($conexion, $consulta);
 						if($consulta2 && mysqli_num_rows($consulta2)>0){
 							$n=1;
-
-							echo "El usuario no existe";
+							echo "El usuario no existe o la contraseña no es correcta";
 						}
 						if($n==1){
 							$consultaContraseña="SELECT * FROM alumno WHERE contraseña='".$alumno."'";
 							$consultaContraseña2=mysqli_query($conexion,$consultaContraseña);
-							print_r($consultaContraseña2);
+
+							/*if (password_verify($alumno,$consultaContraseña)) {
+								echo "Contraseña correcta";
+							}*/
+
 							if ($consultaContraseña2 && mysqli_num_rows($consultaContraseña2)>0){
 								$m=1;
-								mysqli_close($conexion);
 								echo "La contraseña no existe";
+								mysqli_close($conexion);
 							}
 							if($m==1){
 								echo "La contraseña esta correcta";
-
 								echo"<br>";
 								$_SESSION['usuario']=$_POST['numCuenta'];
 								$_SESSION['contrasenia']=$_POST['alumno'];
@@ -80,15 +83,15 @@
 			}
 			else { echo "El usuario no es correcto"; }
 		}
+		//.......
 
 		elseif (isset($_POST['trabajador']) && $_POST['trabajador']!=""&&(isset($_POST['numTrabajador']) && $_POST['numTrabajador']!="")){
 			$numTrabajador=strip_tags($_POST['numTrabajador']);
 			$trabajador=strip_tags($_POST['trabajador']);
 
-
 			if (preg_match('/\d{9}/',$numTrabajador)){
 				//La usuario cubre lo requerido";
-				if (preg_match('/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/',$trabajador)){
+				if (preg_match('/^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$/',$trabajador)){
 					$n=0;
 					$m=0;
 					$consulta="SELECT * FROM trabajador WHERE id_ntrabajador = ".$numTrabajador."";
@@ -100,7 +103,7 @@
 					if($n==1){
 						$consultaContraseña="SELECT * FROM trabajador WHERE contraseña='".$trabajador."'";
 						$consultaContraseña2=mysqli_query($conexion,$consultaContraseña);
-						print_r($consultaContraseña2);
+
 						if ($consultaContraseña2 && mysqli_num_rows($consultaContraseña2)>0){
 							$m=1;
 							mysqli_close($conexion);
@@ -108,15 +111,14 @@
 						}
 						if($m==1){
 							echo "La contraseña esta correcta";
-
 							echo"<br>";
 							$_SESSION['usuario']=$_POST['numTrabajador'];
-							$_SESSION['contrasenia']=$_POST['alumno'];
+							$_SESSION['contrasenia']=$_POST['trabajador'];
 							header('Location: Ingreso.php');
 						}
 					}
 				}
-				echo "La contraseña no es correcta";
+				else {	echo "La contraseña no es correcta";	}
 			}
 			else { echo "El usuario no es correcto"; }
 		}
@@ -127,59 +129,107 @@
 
 			if (preg_match('/\w{10}/',$administrador)){
 				//La usuario cubre lo requerido";
-				$_SESSION['usuario']=$_POST['administrador'];
+				if (preg_match('/^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$/',$AdmiContra)) {
+					$n=0;
+					$m=0;
+					$consulta="SELECT * FROM administrador WHERE usuario = ".$administrador."";
+					$consulta2=mysqli_query($conexion, $consulta);
+					if($consulta2 && mysqli_num_rows($consulta2)>0){
+						$n=1;
+						echo "El usuario no existe o la contraseña no es correcta";
+					}
+					if($n==1){
+						$consultaContraseña="SELECT * FROM administrador WHERE contraseña='".$AdmiContra."'";
+						$consultaContraseña2=mysqli_query($conexion,$consultaContraseña);
 
-				if (preg_match('/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/',$AdmiContra)) {
-					//La contraseña tiene 10 digitos
-					$_SESSION['contrasenia']=$_POST['AdmiContra'];
+
+						if ($consultaContraseña2 && mysqli_num_rows($consultaContraseña2)>0){
+							$m=1;
+							echo "La contraseña no existe";
+							mysqli_close($conexion);
+						}
+						if($m==1){
+							echo "La contraseña esta correcta";
+							echo"<br>";
+
+							$_SESSION['usuario']=$_POST['administrador'];
+							$_SESSION['contrasenia']=$_POST['AdmiContra'];
 					header('Location: Ingreso.php');
 				}
-				echo "La contraseña no es correcta";
 			}
-			else { echo "El usuario no es correcto"; }
 		}
+				else { echo "La contraseña no es correcta";			}
+	}
+			else { echo "El usuario no es correcto"; }
+}
 
 		elseif (isset($_POST['supervisor']) && $_POST['supervisor']!=""&&(isset($_POST['SuperContra']) && $_POST['SuperContra']!="")){
 			$supervisor=strip_tags($_POST['supervisor']);
 			$SuperContra=strip_tags($_POST['SuperContra']);
 
-
 			if (preg_match('/\w{10}/',$supervisor)){
 				//La usuario cubre lo requerido
 				$_SESSION['usuario']=$_POST['supervisor'];
-				if (preg_match('/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/',$SuperContra)) {
+				if (preg_match('/^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$/',$SuperContra)) {
 					//La contraseña tiene 10 digitos
-					$_SESSION['contrasenia']=$_POST['SuperContra'];
-					header('Location: Ingreso.php');
+					$n=0;
+					$m=0;
+
+					$consulta="SELECT * FROM supervisor WHERE usuario = ".$supervisor."";
+					$consulta2=mysqli_query($conexion, $consulta);
+					if($consulta2 && mysqli_num_rows($consulta2)>0){
+						$n=1;
+						echo "El usuario no existe o la contraseña no es correcta";
+					}
+					if($n==1){
+						$consultaContraseña="SELECT * FROM supervisor WHERE contraseña='".$SuperContra."'";
+						$consultaContraseña2=mysqli_query($conexion,$consultaContraseña);
+
+						/*if (password_verify($alumno,$consultaContraseña)) {
+							echo "Contraseña correcta";
+						}*/
+
+						if ($consultaContraseña2 && mysqli_num_rows($consultaContraseña2)>0){
+							$m=1;
+							echo "La contraseña no existe";
+							mysqli_close($conexion);
+						}
+						if($m==1){
+							echo "La contraseña esta correcta";
+							echo"<br>";
+							$_SESSION['usuario']=$_POST['supervisor'];
+							$_SESSION['contrasenia']=$_POST['SuperContra'];
+							header('Location: Ingreso.php');
+						}
+					}
 				}
-				echo "La contraseña no es correcta";
+				else { 		echo "La contraseña no es correcta";				}
 			}
 			else { echo "El usuario no es correcto"; }
 		}
-
+		//...
 		elseif (isset($_POST['ProfeFunci']) && $_POST['ProfeFunci']!=""&&(isset($_POST['ProfeFunciContra']) && $_POST['ProfeFunciContra']!="")){
 			$ProfeFunci=strip_tags($_POST['ProfeFunci']);
 			$ProfeFunciContra=strip_tags($_POST['ProfeFunciContra']);
 
 			if (preg_match('/[A-Z]{4}[0-9]{2}((0)[0-9]|((1)[0-2]))(([0-2][0-9]|(3)[0-1]))\w{3}/',$ProfeFunci)){
-				//La usuario cubre lo requerido";
-				if (preg_match('/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/',$ProfeFunciContra)){
+				//El usuario cubre lo requerido
+				if (preg_match('/^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$/',$ProfeFunciContra)){
 					$n=0;
 					$m=0;
 					$consulta="SELECT * FROM profefuncionario WHERE id_rfc = ".$ProfeFunci."";
 					$consulta2=mysqli_query($conexion, $consulta);
 					if($consulta2 && mysqli_num_rows($consulta2)>0){
 						$n=1;
-						echo "El usuario no existe";
+						echo "El usuario no existe o la contraseña no es correcta";
 					}
 					if($n==1){
-						$consultaContraseña="SELECT * FROM alumno WHERE contraseña='".$ProfeFunci."'";
+						$consultaContraseña="SELECT * FROM profefuncionario WHERE contraseña='".$ProfeFunciContra."'";
 						$consultaContraseña2=mysqli_query($conexion,$consultaContraseña);
-						print_r($consultaContraseña2);
 						if ($consultaContraseña2 && mysqli_num_rows($consultaContraseña2)>0){
 							$m=1;
-							mysqli_close($conexion);
 							echo "La contraseña no existe";
+							mysqli_close($conexion);
 						}
 						if($m==1){
 							echo "La contraseña esta correcta";
@@ -190,9 +240,10 @@
 						}
 					}
 				}
-				echo "La contraseña no es correcta";
+				else {
+					echo "La contraseña no es correcta";}
 			}
-			else { echo "El usuario no es correcto"; }
+		  else { echo "El usuario no es correcto"; }
 		}
 
 		else{
@@ -204,10 +255,10 @@
 					echo '
 					<form action= "Ingreso.php"  method="POST">
 						<label> Ingrese su numero de cuenta</label>
-						<input type="number" name="numCuenta"   pattern= "\d{10}" title="Tiene que tener 9 dígitos." value="" >
+						<input type="number" name="numCuenta"   pattern= "\d{9}" title="Tiene que tener 9 dígitos." value="" >
 						<br>
 						<label> Contraseña</label>
-						<input type="password" name="alumno" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$)">
+						<input type="password" name="alumno" pattern="^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$">
 						<input type="submit" value="Iniciar sesion" name="Inicio" class="submit">
 					</form>';
 				}
@@ -216,10 +267,10 @@
 					echo '
 					<form action="Ingreso.php" method="POST">
 						<label> Ingrese su numero de trabajador</label>
-						<input name="numTrabajador" type=number  pattern="[0-9]{9}">
+						<input name="numTrabajador" type=number  pattern="\d{9}">
 						<br>
 						<label> Contraseña</label>
-						<input type="password" name="trabajador" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$"/>
+						<input type="password" name="trabajador" pattern="^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$"/>
 						<input type="submit" value="Iniciar Sesion" name="Inicio" class="submit">
 					</form>';
 				}
@@ -230,7 +281,7 @@
 						<label> Usuario </label>
 						<input type=text name="administrador">
 						Contraseña:
-						<input type="password" name="AdmiContra" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$"/>
+						<input type="password" name="AdmiContra" pattern="^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$"/>
 						<input type="submit" value="Ingresar" name="Inicio" class="submit">
 					</form>';
 				}
@@ -240,8 +291,9 @@
 						<label> Usuario </label>
 						<input type=number name="supervisor">
 						Contraseña:
-						<input type="password" name="SuperContra" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$"/>
+						<input type="password" name="SuperContra" pattern="^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$"/>
 						<input type="submit" value="Ingresar" name="Inicio" class="submit">
+						<input type="hidden" value="ingreso" name="ingreso">
 					</form>';
 				}
 				elseif ($tipo =='Profesor'||'Funcionario'){
@@ -253,7 +305,7 @@
 
 						<br>
 						<label> Contraseña</label>
-						<input type="password" name="ProfeFunciContra" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$"/>
+						<input type="password" name="ProfeFunciContra" pattern="^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$"/>
 						<input type="submit" value="Iniciar Sesion" name="Inicio" class="submit">
 					</form>';
 				}
