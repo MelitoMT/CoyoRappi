@@ -273,6 +273,8 @@
 						<br>
 						<label> Contraseña</label>
 						<input type="password" name="trabajador" pattern="^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$"/>
+						<br>
+						<br>
 						<input type="submit" value="Iniciar Sesion" name="Inicio" class="submit">
 					</form>';
 				}
@@ -284,6 +286,8 @@
 						<input type=text name="administrador">
 						Contraseña:
 						<input type="password" name="AdmiContra" pattern="^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$"/>
+						<br>
+						<br>
 						<input type="submit" value="Ingresar" name="Inicio" class="submit">
 					</form>';
 				}
@@ -294,6 +298,8 @@
 						<input type=number name="supervisor">
 						Contraseña:
 						<input type="password" name="SuperContra" pattern="^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$"/>
+						<br>
+						<br>
 						<input type="submit" value="Ingresar" name="Inicio" class="submit">
 						<input type="hidden" value="ingreso" name="ingreso">
 					</form>';
@@ -308,6 +314,8 @@
 						<br>
 						<label> Contraseña</label>
 						<input type="password" name="ProfeFunciContra" pattern="^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$"/>
+						<br>
+						<br>
 						<input type="submit" value="Iniciar Sesion" name="Inicio" class="submit">
 					</form>';
 				}
