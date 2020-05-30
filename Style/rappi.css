@@ -13,16 +13,31 @@
   align-items: center;
   justify-content: center;
 }
-.grid{
-  display: grid;
-  grid-template-columns: auto auto;
-  text-align: center;
-  grid-gap: 0px;
-  padding: 20px;
-} 
 #table{
   border-collapse: collapse;
-  width: 50%;
+}
+#esperar{
+  background: linear-gradient(rgb(255, 138, 5), rgb(230, 197, 16));
+  color: white;
+  padding: 10px 10px;
+  border-radius: 8PX;
+  width: 40%;
+  text-align: center;
+}
+#esperar:hover{
+  background: linear-gradient(rgb(230, 197, 16),rgb(255, 138, 5));
+}
+#es{
+  background: linear-gradient(rgb(223, 222, 221), rgb(160, 160, 160));
+  color: rgb(0, 0, 0);
+  padding: 10px 10px;
+  border-radius: 8PX;
+  width: 40%;
+  text-align: center;
+
+}
+#es:hover{
+  background-color:(rgb(192, 191, 190));
 }
 #table th {
   padding-top: 10px;
@@ -32,16 +47,95 @@
   color: white;
 }
 #table tr:nth-child(even){
-  background-color: #f2f2f2;
+  background-color: #afafaf;
+}
+#table tr:nth-child(odd){
+  background-color: #e9e5e5;
 }
 #table tr:hover {
-  background: linear-gradient(rgb(255, 138, 5), rgb(230, 197, 16));
+  background: linear-gradient(rgb(205, 206, 207), rgb(77, 76, 76));
   color: white;
 }
 #table td, #table th {
   border: 1px solid rgb(0, 0, 0);
   padding: 8px;
+  width: 100%;
 }
+#nav1{
+  grid-column-start:1;
+  grid-row-start: 1;
+
+}
+#nav2{
+  grid-column-start:2;
+  grid-row-start: 1;
+
+}
+#nav3{
+  grid-column-start:3;
+  grid-row-start: 1;
+
+}
+#nav4{
+  grid-column-start:4;
+  grid-row-start: 1;
+}
+#nav1,#nav2,#nav3{
+  background: linear-gradient(rgb(255, 63, 5), rgb(230, 162, 16));
+  color: white;
+  padding: 10px 10px;
+  border-radius: 8PX;
+  width: 30%;
+  text-align: center;
+}
+#nav3:hover{
+  background: linear-gradient(rgb(230, 162, 16),rgb(255, 63, 5));
+}
+#nav2:hover{
+  background: linear-gradient(rgb(230, 162, 16),rgb(255, 63, 5));
+}
+#nav1:hover{
+  background: linear-gradient(rgb(230, 162, 16),rgb(255, 63, 5));
+}
+.buttons{
+  background: linear-gradient(rgb(255, 138, 5), rgb(230, 197, 16));
+  color: white;
+  padding: 10px 10px;
+  border-radius: 8PX;  
+  width: 80%;
+  text-align: center;
+}
+.buttons:hover{
+  background: linear-gradient( rgb(230, 197, 16),rgb(255, 138, 5));
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 10px;
+  padding: 30px;
+}
+.tablap{
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 6;
+}
+.esperando{ 
+  grid-column-start:3;
+  grid-column-end:3;
+  grid-row-start: 3;
+}
+.entregando{
+  grid-column-start:3;
+  grid-column-end:3;
+  grid-row-start: 4;
+}
+.sancionando{
+  grid-column-start:3;
+  grid-column-end:3;
+  grid-row-start: 5;
+}
+
 .img1-section{
   background-image: url('../Media/prepa3.jpg');
   height: 60vh;
@@ -103,6 +197,7 @@
 .sup{
   background: linear-gradient(rgb(255, 138, 5), rgb(230, 197, 16));
 }
+
 .submit:hover{
   background-color:#745002;
   color: white;
