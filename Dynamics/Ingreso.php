@@ -259,6 +259,8 @@
 						<br>
 						<label> Contraseña</label>
 						<input type="password" name="alumno" pattern="^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$">
+						<br>
+						<br>
 						<input type="submit" value="Iniciar sesion" name="Inicio" class="submit">
 					</form>';
 				}
@@ -315,12 +317,16 @@
 				echo '
 				<form action="Ingreso.php" method="POST">
 					Ingrese tipo de Usuario:
+					<br>
+					<br>
 					<select name="tipo" required/>
 						<option value="Alumno"> Alumno </option>
 						<option value="Profesor"> Profesor </option>
 						<option value="Funcionario"> Funcionario </option>
 						<option value="Trabajador"> Trabajador </option>
 					</select>
+					<br>
+					<br>
 					<input type="submit" value="Selecciona" class="submit">
 				</form>';
 			}
