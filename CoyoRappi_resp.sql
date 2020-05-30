@@ -1,6 +1,6 @@
 -- MariaDB dump 10.17  Distrib 10.4.11-MariaDB, for Win64 (AMD64)
 --
--- Host: localhost    Database: coyo_rappi
+-- Host: localhost    Database: Coyo_Rappi
 -- ------------------------------------------------------
 -- Server version	10.4.11-MariaDB
 
@@ -51,7 +51,7 @@ CREATE TABLE `alimento` (
   `costo` float(5,2) NOT NULL,
   PRIMARY KEY (`id_alimento`),
   UNIQUE KEY `nombre` (`nombre`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -60,6 +60,7 @@ CREATE TABLE `alimento` (
 
 LOCK TABLES `alimento` WRITE;
 /*!40000 ALTER TABLE `alimento` DISABLE KEYS */;
+INSERT INTO `alimento` VALUES (1,'DEFAULT',1,1.00),(2,'Tacos',5,60.00),(3,'Pasta Pesto',3,70.00),(4,'Tacos Dorados',4,30.00);
 /*!40000 ALTER TABLE `alimento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,6 +89,7 @@ CREATE TABLE `alumno` (
 
 LOCK TABLES `alumno` WRITE;
 /*!40000 ALTER TABLE `alumno` DISABLE KEYS */;
+INSERT INTO `alumno` VALUES ('234567876','Mariana','ret',509,'A','Melo','Téllez'),('317654345','raul','Yo34como5678?',506,'I','perez','sotelo'),('318234856','Gamaliel','12345',601,'A','Ríos','Lira'),('319125939','Mariana','12345',501,'A','Melo','Téllez'),('345678987','mariana','12345',0,'A','Melo','Téllez');
 /*!40000 ALTER TABLE `alumno` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -100,11 +102,11 @@ DROP TABLE IF EXISTS `cliente`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cliente` (
   `id_cliente` int(4) NOT NULL AUTO_INCREMENT,
-  `tipo_usuario` enum('Alumno','Profesor','Trabajador') NOT NULL,
+  `tipo_usuario` enum('alumno','profefuncionario','trabajador') NOT NULL,
   `usuario` varchar(15) NOT NULL,
   PRIMARY KEY (`id_cliente`),
   UNIQUE KEY `usuario` (`usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -113,6 +115,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+INSERT INTO `cliente` VALUES (1,'alumno','319125939'),(2,'profefuncionario','juan'),(3,'alumno','317654345');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -152,10 +155,10 @@ CREATE TABLE `pedido` (
   `id_pedido` int(4) NOT NULL AUTO_INCREMENT,
   `id_cliente` int(4) NOT NULL,
   `id_alimento` int(3) NOT NULL,
-  `id_lugar` int(2) NOT NULL,
+  `id_lugar` int(2) DEFAULT NULL,
   `hpedido` datetime DEFAULT NULL,
   `epedido` datetime DEFAULT NULL,
-  `estado` enum('Pendiente','Entregado','Cancelado') NOT NULL,
+  `estado` enum('Pendiente','Espera','Entregado','Cancelado') NOT NULL,
   `cantidad` int(3) DEFAULT NULL,
   `total` float(6,2) DEFAULT NULL,
   PRIMARY KEY (`id_pedido`),
@@ -165,7 +168,7 @@ CREATE TABLE `pedido` (
   CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`),
   CONSTRAINT `pedido_ibfk_2` FOREIGN KEY (`id_alimento`) REFERENCES `alimento` (`id_alimento`),
   CONSTRAINT `pedido_ibfk_3` FOREIGN KEY (`id_lugar`) REFERENCES `lugardeentrega` (`id_lugar`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -174,6 +177,7 @@ CREATE TABLE `pedido` (
 
 LOCK TABLES `pedido` WRITE;
 /*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
+INSERT INTO `pedido` VALUES (7,3,3,1,'2020-05-09 01:09:00','2020-05-18 01:09:00','Espera',20,100.00),(8,3,2,1,'2020-05-31 01:09:00','2020-06-11 01:09:00','Espera',2,60.00);
 /*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -202,6 +206,7 @@ CREATE TABLE `profefuncionario` (
 
 LOCK TABLES `profefuncionario` WRITE;
 /*!40000 ALTER TABLE `profefuncionario` DISABLE KEYS */;
+INSERT INTO `profefuncionario` VALUES ('41245f','Juan','231','235','A','Camacho','Barrientos'),('789056','mariana','12345','root','A','Melo','Téllez');
 /*!40000 ALTER TABLE `profefuncionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -251,6 +256,7 @@ CREATE TABLE `trabajador` (
 
 LOCK TABLES `trabajador` WRITE;
 /*!40000 ALTER TABLE `trabajador` DISABLE KEYS */;
+INSERT INTO `trabajador` VALUES ('123452','Zara','12345','A','rebeca','sanchez');
 /*!40000 ALTER TABLE `trabajador` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -263,4 +269,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-29  0:19:48
+-- Dump completed on 2020-05-30  6:48:43
