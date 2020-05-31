@@ -13,7 +13,6 @@
 
 	session_start();
 
-
 	function cerrarSesion(){
 		session_unset();
 		session_destroy();
@@ -42,7 +41,8 @@
 		if (isset($_POST['alumno']) && $_POST['alumno']!=""&&(isset($_POST['numCuenta']) && $_POST['numCuenta']!="")){
 
 			$numCuenta=strip_tags(mysqli_real_escape_string($conexion,$_POST['numCuenta']));
-			$alumno=strip_tags(mysqli_real_escape_string($conexion,$_POST['alumno']));
+			$alumnoContra=strip_tags(mysqli_real_escape_string($conexion,$_POST['alumno']));
+			$alumno=password_hash($alumnoContra,PASSWORD_BCRYPT);
 
 			if (preg_match('/\d{9}/',$numCuenta)){
 				//La usuario cubre lo requerido
@@ -87,7 +87,8 @@
 
 		elseif (isset($_POST['trabajador']) && $_POST['trabajador']!=""&&(isset($_POST['numTrabajador']) && $_POST['numTrabajador']!="")){
 			$numTrabajador=strip_tags(mysqli_real_escape_string($conexion,$_POST['numTrabajador']));
-			$trabajador=strip_tags(mysqli_real_escape_string($conexion,$_POST['trabajador']));
+			$Contratrabajador=strip_tags(mysqli_real_escape_string($conexion,$_POST['trabajador']));
+		  $trabajador=password_hash($Contratrabajador,PASSWORD_BCRYPT);
 
 			if (preg_match('/\d{9}/',$numTrabajador)){
 				//La usuario cubre lo requerido";
@@ -125,7 +126,8 @@
 
 		elseif (isset($_POST['administrador']) && $_POST['administrador']!=""&&(isset($_POST['AdmiContra']) && $_POST['AdmiContra']!="")){
 			$administrador=strip_tags(mysqli_real_escape_string($conexion,$_POST['administrador']));
-			$AdmiContra=strip_tags(mysqli_real_escape_string($conexion,$_POST['AdmiContra']));
+			$AdContra=strip_tags(mysqli_real_escape_string($conexion,$_POST['AdmiContra']));
+			$AdmiContra=password_hash($AdContra,PASSWORD_BCRYPT);
 
 			if (preg_match('/\w{10}/',$administrador)){
 				//La usuario cubre lo requerido";
@@ -164,7 +166,8 @@
 
 		elseif (isset($_POST['supervisor']) && $_POST['supervisor']!=""&&(isset($_POST['SuperContra']) && $_POST['SuperContra']!="")){
 			$supervisor=strip_tags(mysqli_real_escape_string($conexion, $_POST['supervisor']));
-			$SuperContra=strip_tags($_POST['SuperContra']);
+			$supervisorContra=strip_tags(mysqli_real_escape_string($conexion, $_POST['SuperContra']));
+			$SuperContra=password_hash($supervisorContra,PASSWORD_BCRYPT);
 
 			if (preg_match('/\w{10}/',$supervisor)){
 				//La usuario cubre lo requerido
@@ -183,10 +186,6 @@
 					if($n==1){
 						$consultaContraseña="SELECT * FROM supervisor WHERE contraseña='".$SuperContra."'";
 						$consultaContraseña2=mysqli_query($conexion,$consultaContraseña);
-
-						/*if (password_verify($alumno,$consultaContraseña)) {
-							echo "Contraseña correcta";
-						}*/
 
 						if ($consultaContraseña2 && mysqli_num_rows($consultaContraseña2)>0){
 							$m=1;
@@ -209,7 +208,8 @@
 		//...
 		elseif (isset($_POST['ProfeFunci']) && $_POST['ProfeFunci']!=""&&(isset($_POST['ProfeFunciContra']) && $_POST['ProfeFunciContra']!="")){
 			$ProfeFunci=strip_tags(mysqli_real_escape_string($conexion,$_POST['ProfeFunci']));
-			$ProfeFunciContra=strip_tags($_POST['ProfeFunciContra']);
+			$ProfeFuncionarioContra=strip_tags(mysqli_real_escape_string($conexion,$_POST['ProfeFunciContra']));
+			$ProfeFunciContra=password_hash($ProfeFuncionarioContra,PASSWORD_BCRYPT);
 
 			if (preg_match('/[A-Z]{4}[0-9]{2}((0)[0-9]|((1)[0-2]))(([0-2][0-9]|(3)[0-1]))\w{3}/',$ProfeFunci)){
 				//El usuario cubre lo requerido

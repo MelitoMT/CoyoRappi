@@ -27,7 +27,10 @@
                     $tipo=$_POST['tipo'];
                     $atributo='';
                     $dato='';
-                    $cifrado=password_hash($contraseña,PASSWORD_BCRYPT);
+                    $salted="kRUMVQqmmiRJEhxrrHKKKdHgfdckgr".$contraseña."EBaTdDtDFDtGZ4uBnqmq3BvANFU2J2";
+
+                    $hash=password_hash($salted,PASSWORD_BCRYPT);
+
                     if(isset($_POST['Colegio']))
                     $colegio=$_POST['Colegio'];
                     if(isset($_POST['Grupo']) && $_POST['Grupo']!='')
@@ -61,15 +64,15 @@
                     else{
                         switch ($tipo){
                             case 'alumno':
-                                $insert="INSERT INTO `alumno` (`id_ncuenta`, `nombre`, `contraseña`, `grupo`, `estado`, `apaterno`, `amaterno`) VALUES ('$usuario', '$nombre', '$cifrado', '$grupo', 'A', '$apaterno', '$amaterno');";
+                                $insert="INSERT INTO `alumno` (`id_ncuenta`, `nombre`, `contraseña`, `grupo`, `estado`, `apaterno`, `amaterno`) VALUES ('$usuario', '$nombre', '$hash', '$grupo', 'A', '$apaterno', '$amaterno');";
                                 mysqli_query($conexion, $insert);
                                 break;
                             case 'trabajador':
-                                $insert="INSERT INTO `trabajador` (`id_ntrabajador`, `nombre`, `contraseña`, `estado`, `apaterno`, `amaterno`) VALUES ('$usuario', '$nombre', '$cifrado', 'A', '$apaterno', '$amaterno');";
+                                $insert="INSERT INTO `trabajador` (`id_ntrabajador`, `nombre`, `contraseña`, `estado`, `apaterno`, `amaterno`) VALUES ('$usuario', '$nombre', '$hash', 'A', '$apaterno', '$amaterno');";
                                 mysqli_query($conexion, $insert);
                                 break;
                             case 'profefuncionario':
-                                $insert="INSERT INTO `profefuncionario` (`id_rfc`, `nombre`, `contraseña`, `colegio`, `estado`, `apaterno`, `amaterno`) VALUES ('$usuario', '$nombre', '$cifrado', '$colegio', 'A', '$apaterno', '$amaterno');";
+                                $insert="INSERT INTO `profefuncionario` (`id_rfc`, `nombre`, `contraseña`, `colegio`, `estado`, `apaterno`, `amaterno`) VALUES ('$usuario', '$nombre', '$hash', '$colegio', 'A', '$apaterno', '$amaterno');";
                                 mysqli_query($conexion, $insert);
                                 break;
                         }
