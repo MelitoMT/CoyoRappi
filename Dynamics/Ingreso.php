@@ -41,8 +41,8 @@
 	else{
 		if (isset($_POST['alumno']) && $_POST['alumno']!=""&&(isset($_POST['numCuenta']) && $_POST['numCuenta']!="")){
 
-			$numCuenta=strip_tags($_POST['numCuenta']);
-			$alumno=strip_tags($_POST['alumno']);
+			$numCuenta=strip_tags(mysqli_real_escape_string($conexion,$_POST['numCuenta']));
+			$alumno=strip_tags(mysqli_real_escape_string($conexion,$_POST['alumno']));
 
 			if (preg_match('/\d{9}/',$numCuenta)){
 				//La usuario cubre lo requerido
@@ -86,8 +86,8 @@
 		//.......
 
 		elseif (isset($_POST['trabajador']) && $_POST['trabajador']!=""&&(isset($_POST['numTrabajador']) && $_POST['numTrabajador']!="")){
-			$numTrabajador=strip_tags($_POST['numTrabajador']);
-			$trabajador=strip_tags($_POST['trabajador']);
+			$numTrabajador=strip_tags(mysqli_real_escape_string($conexion,$_POST['numTrabajador']));
+			$trabajador=strip_tags(mysqli_real_escape_string($conexion,$_POST['trabajador']));
 
 			if (preg_match('/\d{9}/',$numTrabajador)){
 				//La usuario cubre lo requerido";
@@ -124,8 +124,8 @@
 		}
 
 		elseif (isset($_POST['administrador']) && $_POST['administrador']!=""&&(isset($_POST['AdmiContra']) && $_POST['AdmiContra']!="")){
-			$administrador=strip_tags($_POST['administrador']);
-			$AdmiContra=strip_tags($_POST['AdmiContra']);
+			$administrador=strip_tags(mysqli_real_escape_string($conexion,$_POST['administrador']));
+			$AdmiContra=strip_tags(mysqli_real_escape_string($conexion,$_POST['AdmiContra']));
 
 			if (preg_match('/\w{10}/',$administrador)){
 				//La usuario cubre lo requerido";
@@ -141,7 +141,6 @@
 					if($n==1){
 						$consultaContraseña="SELECT * FROM administrador WHERE contraseña='".$AdmiContra."'";
 						$consultaContraseña2=mysqli_query($conexion,$consultaContraseña);
-
 
 						if ($consultaContraseña2 && mysqli_num_rows($consultaContraseña2)>0){
 							$m=1;
@@ -164,7 +163,7 @@
 }
 
 		elseif (isset($_POST['supervisor']) && $_POST['supervisor']!=""&&(isset($_POST['SuperContra']) && $_POST['SuperContra']!="")){
-			$supervisor=strip_tags($_POST['supervisor']);
+			$supervisor=strip_tags(mysqli_real_escape_string($conexion, $_POST['supervisor']));
 			$SuperContra=strip_tags($_POST['SuperContra']);
 
 			if (preg_match('/\w{10}/',$supervisor)){
@@ -209,7 +208,7 @@
 		}
 		//...
 		elseif (isset($_POST['ProfeFunci']) && $_POST['ProfeFunci']!=""&&(isset($_POST['ProfeFunciContra']) && $_POST['ProfeFunciContra']!="")){
-			$ProfeFunci=strip_tags($_POST['ProfeFunci']);
+			$ProfeFunci=strip_tags(mysqli_real_escape_string($conexion,$_POST['ProfeFunci']));
 			$ProfeFunciContra=strip_tags($_POST['ProfeFunciContra']);
 
 			if (preg_match('/[A-Z]{4}[0-9]{2}((0)[0-9]|((1)[0-2]))(([0-2][0-9]|(3)[0-1]))\w{3}/',$ProfeFunci)){
@@ -259,8 +258,6 @@
 						<br>
 						<label> Contraseña</label>
 						<input type="password" name="alumno" pattern="^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$">
-						<br>
-						<br>
 						<input type="submit" value="Iniciar sesion" name="Inicio" class="submit">
 					</form>';
 				}
@@ -273,8 +270,6 @@
 						<br>
 						<label> Contraseña</label>
 						<input type="password" name="trabajador" pattern="^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$"/>
-						<br>
-						<br>
 						<input type="submit" value="Iniciar Sesion" name="Inicio" class="submit">
 					</form>';
 				}
@@ -286,8 +281,6 @@
 						<input type=text name="administrador">
 						Contraseña:
 						<input type="password" name="AdmiContra" pattern="^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$"/>
-						<br>
-						<br>
 						<input type="submit" value="Ingresar" name="Inicio" class="submit">
 					</form>';
 				}
@@ -298,8 +291,6 @@
 						<input type=number name="supervisor">
 						Contraseña:
 						<input type="password" name="SuperContra" pattern="^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$"/>
-						<br>
-						<br>
 						<input type="submit" value="Ingresar" name="Inicio" class="submit">
 						<input type="hidden" value="ingreso" name="ingreso">
 					</form>';
@@ -314,8 +305,6 @@
 						<br>
 						<label> Contraseña</label>
 						<input type="password" name="ProfeFunciContra" pattern="^(?=.{10,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$"/>
-						<br>
-						<br>
 						<input type="submit" value="Iniciar Sesion" name="Inicio" class="submit">
 					</form>';
 				}
@@ -325,16 +314,12 @@
 				echo '
 				<form action="Ingreso.php" method="POST">
 					Ingrese tipo de Usuario:
-					<br>
-					<br>
 					<select name="tipo" required/>
 						<option value="Alumno"> Alumno </option>
 						<option value="Profesor"> Profesor </option>
 						<option value="Funcionario"> Funcionario </option>
 						<option value="Trabajador"> Trabajador </option>
 					</select>
-					<br>
-					<br>
 					<input type="submit" value="Selecciona" class="submit">
 				</form>';
 			}
