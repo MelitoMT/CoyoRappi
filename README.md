@@ -2,7 +2,7 @@
 ## _Integrantes_
 * Melo Téllez Mariana Itzel
 * Perez Natalia
-* Anton
+* Zahuantitla Vázquez José Antonio
 ## _Instalación del proyecto:_
 ### _1.Requerimentos generales:_
 * Servidor Apache con PHP 7 y MYSQL
