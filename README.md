@@ -4,7 +4,7 @@
 :turtle:
 ## _Integrantes_
 * Melo Téllez Mariana Itzel
-* Perez Natalia
+* Perez Romero Natalia Abigail
 * Zahuantitla Vázquez José Antonio
 ## _Instalación del proyecto:_
 ### _1.Requerimentos generales:_
@@ -16,7 +16,7 @@
 * Una vez instalado, copiar la carpeta "Coyo_Rappi" dentro del directorio "htdocs" en caso de estar utilizando XAMPP o en la carpeta correspondiente si no estamos utilizando Xampp.
 * Tras esto, se va a crear la base de datos, para esto es necesario comunicarnos con la consola,  presionar en el caso de Windows, "Windows+R  -> cmd" (Terminal) como atajo de teclado o en su defecto buscar consola o símbolo del sistema en la herramienta de búsqueda de aplicaciones, en el caso de Linux, "Menu K->Sistema->Konsole" (Programa de terminal).
 Dentro, escribiremos el path cd xampp/htdocs/CoyoRappi  -  > mysql -u root, tras lo cual escribiremos "CREATE DATABASE Coyo_Rappi". Con esto habremos creado la base de datos, sin embargo falta ocupar el respaldo, por lo que
-escribiremos "exit" y proseguiremos a ingresar la siguiente ruta "mysqldump -u root Coyo_Rappi < DB_Coyo_Rappi.sql" 
+escribiremos "exit" y proseguiremos a ingresar la siguiente ruta "mysqldump -u root Coyo_Rappi < DB_CoyoRappi.sql" 
 ### _3.Configuraciones generales:_
 * Con el fin de evitar un mal uso del sistema, este viene con un único usuario de tipo "Aministrador" preestablecido con los campos "CoyoAdministrador" y "o{H:k5yqa*" como usuario y contraseña respectivamente; sin embargo,
 estos se pueden modificar para cumplir los requerimentos del uso que se le vaya a dar, lo que tenemos que hacer es en la consola (Revisar instalación), escribir el siguiente comando "UPDATE administrador SET usuario='usuario deseado' && contraseña= 'contraseña' WHERE usuario=''CoyoAdministrador".
