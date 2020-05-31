@@ -1,27 +1,30 @@
-## Dinos
+# CoyoRappi
+> El rincón de Coyoisauro.
+## Dinos 
+:turtle:
 ## _Integrantes_
 * Melo Téllez Mariana Itzel
 * Perez Natalia
 * Zahuantitla Vázquez José Antonio
 ## _Instalación del proyecto:_
 ### _1.Requerimentos generales:_
-* Servidor Apache con PHP 7 y MYSQL
+* Servidor Apache con PHP 7 y Maria DB.
 * Navegador Web actualizado(se sugiere ocupar Google Chrome).
 * Carpeta del proyecto.
 ###  _2.Instalación:_
-* En caso de no contar con un servidor Apache con PHP 7.2 Y Maria DB, se recomienda descargar XAMPP: https://www.apachefriends.org/download.html , de preferencia aceptar las configuraciones predeterminadas en la ruta de instalación.
+* En caso de no contar con un servidor Apache con PHP 7.2 Y Maria DB, se recomienda descargar XAMPP: [Instalar XAMPP](https://www.apachefriends.org/download.html/) , de preferencia aceptar las configuraciones predeterminadas en la ruta de instalación.
 * Una vez instalado, copiar la carpeta "Coyo_Rappi" dentro del directorio "htdocs" en caso de estar utilizando XAMPP o en la carpeta correspondiente si no estamos utilizando Xampp.
 * Tras esto, se va a crear la base de datos, para esto es necesario comunicarnos con la consola,  presionar en el caso de Windows, "Windows+R  -> cmd" (Terminal) como atajo de teclado o en su defecto buscar consola o símbolo del sistema en la herramienta de búsqueda de aplicaciones, en el caso de Linux, "Menu K->Sistema->Konsole" (Programa de terminal).
 Dentro, escribiremos el path cd xampp/htdocs/CoyoRappi  -  > mysql -u root, tras lo cual escribiremos "CREATE DATABASE Coyo_Rappi". Con esto habremos creado la base de datos, sin embargo falta ocupar el respaldo, por lo que
 escribiremos "exit" y proseguiremos a ingresar la siguiente ruta "mysqldump -u root Coyo_Rappi < DB_Coyo_Rappi.sql" 
 ### _3.Configuraciones generales:_
 * Con el fin de evitar un mal uso del sistema, este viene con un único usuario de tipo "Aministrador" preestablecido con los campos "Coyo_Rappi" y "Aministrador" como usuario y contraseña respectivamente; sin embargo,
-estos se pueden modificar para cumplir los requerimentos del uso que se le vaya a dar, lo que tenemos que hacer es en la consola (Revisar instalación), escribir el siguiente comando "UPDATE administrador".
+estos se pueden modificar para cumplir los requerimentos del uso que se le vaya a dar, lo que tenemos que hacer es en la consola (Revisar instalación), escribir el siguiente comando "UPDATE administrador SET usuario='usuario deseado' && contraseña= 'contraseña' WHERE usuario=''Coyo_Rappi ".
 * Como el sistema almacena la fecha y hora de los registros realizados, es recomendable revisar que la zona horaria en la que está configurada MYSQL sea la correcta, para esto escribiremos el comando "SELECT NOW()", si tanto la fecha como la hora coinciden con la
-que se desea entonces podremos continuar.
+actual entonces podremos continuar.
  ### _4.Uso (Aministrador):_
 * El usuario de tipo administrador tendrá ciertos permisos entre los que se encuentran el modificar, eliminar y agregar los alimentos de la base de datos, así como modificar la informacion de los usuarios y el eliminar estos mismos.
-* Para poder ingresar como administrador es necesario entrar a la página principal del sistema "localhost/Coyo_Rappi/Templates/Coyo_Rappi.html" y presionar sobre el botón derecho que dice administrador, una vez ahí se pedirá que se ingrese un usuario y contraseña(loa definidos anteriormente).
+* Para poder ingresar como administrador es necesario entrar a la página principal del sistema "localhost/Coyo_Rappi/Templates/Coyo_Rappi.html" y presionar sobre el botón derecho que dice administrador, una vez ahí se pedirá que se ingrese un usuario y contraseña(los definidos anteriormente).
 Una vez ingresados, si los campos son correctos nos permitirá entrar a una interfaz dónde podremos seleccionar la acción que queremos realizar y llevarla acabo.
 * Una de las principales funciones del Administrador es la de ser el único usuario con la capacidad de agregar otros supervisores y administradores, por lo que, una vez que sean designados, sólo se podran registrar directamente por el administrador.
 
@@ -44,4 +47,4 @@ dónde desean recibir su orden o en su defecto recogerla en cafetería en cierto
 En caso de accidentalmente borrar el usuario Administrador, será necesario crear uno nuevo desde la consola, para esto, tendremos que ingresar el siguiente path "cd xampp/mysql/bin"  -  >  "mysql -u root" -  >  "USE Coyo_Rappi"  -  >  "INSERT INTO administrador ('usuario','contraseña') VALUES ('usuarioDeseado', 'contraseñaDeseada').
 
 ### _Comentarios Adicionales:_
- 
+Es posible que 
