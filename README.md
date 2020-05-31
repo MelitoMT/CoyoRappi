@@ -47,4 +47,4 @@ dónde desean recibir su orden o en su defecto recogerla en cafetería en cierto
 En caso de accidentalmente borrar el usuario Administrador, será necesario crear uno nuevo desde la consola, para esto, tendremos que ingresar el siguiente path "cd xampp/mysql/bin"  -  >  "mysql -u root" -  >  "USE Coyo_Rappi"  -  >  "INSERT INTO administrador ('usuario','contraseña') VALUES ('usuarioDeseado', 'contraseñaDeseada').
 
 ### _Comentarios Adicionales:_
-Es posible que 
+Es posible que se requiera ajustar el proyecto a sus necesidades, gracias por preferirnos.:octocat:
