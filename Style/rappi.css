@@ -97,6 +97,21 @@
 #nav1:hover{
   background: linear-gradient(rgb(230, 162, 16),rgb(255, 63, 5));
 }
+#card {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  border: 1px rgb(167, 167, 167) solid;
+}
+#header {
+  height: 30%;
+  background: rgb(0, 51, 161);
+  color: white;
+  text-align: center;
+}
+#container {
+  padding: 2px 30px;
+}
 .buttons{
   background: linear-gradient(rgb(255, 138, 5), rgb(230, 197, 16));
   color: white;
@@ -108,6 +123,8 @@
 .buttons:hover{
   background: linear-gradient( rgb(230, 197, 16),rgb(255, 138, 5));
 }
+
+
 .grid-container {
   display: grid;
   grid-template-columns: auto auto auto;

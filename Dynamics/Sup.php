@@ -24,7 +24,7 @@
             echo"<input type=hidden value='ingreso' name='ingreso'>";
         echo"</form>";
         /* Cambia el estado del usuario a 'I' , inactivo */
-        if(isset($_POST['Sancionar'])){
+            if(isset($_POST['Sancionar']) && isset($_POST['tipo'])){
             $tipo=$_POST['tipo'];
             $usuarioname=$_POST['usuarioname'];
             $atributo='';
@@ -49,78 +49,74 @@
         /* Segunda vista: Cuando se crea una cookie con el tiempo ingresado, se cambia el estado del pedido a 'Espera' de tal
         forma que si el pedido tiene estado 'Espera' y no cookie quiere decir que expiró, esto diferencia a esos pedidos de los demás sin cookie.*/
         if(isset($_POST['Alertas'])){
-            echo"</form action='Sup.php' method='POST'>";
-                echo"<div class='tablap'>";
                     include 'AbrirConex.php';
                     $count="SELECT * FROM pedido WHERE estado ='Espera'";
                     $count2=mysqli_query($conexion,$count);
                     if(mysqli_num_rows($count2)>0){
-
                         $alert="SELECT MAX(id_pedido) FROM pedido WHERE estado ='Espera'";
                         $alert2=mysqli_query($conexion,$alert);
                         if(mysqli_num_rows($alert2)>0){
                             $alert3=mysqli_fetch_array($alert2,MYSQLI_NUM);
                             $idP=$alert3['0'];
                         }
-                        /* Tabla donde se agrupan los pedidos de un mismo cliente siempre y cuando estén en espera */
-                        echo"<table id='table'>";
-                            echo"<tr>";
-                                echo"<th></th>";
-                                echo"<th>Cliente</th>";
-                                echo"<th>Orden</th>";
-                                echo"<th>Cantidad</th>";
-                                echo"<th>Estado</th>";
-                            echo"</tr>";
-                            for($i=1;$i<=$idP;$i++){
-                                $resultado="SELECT * FROM pedido WHERE estado ='Espera' && id_cliente=$i ORDER BY id_pedido";
-                                $resultado2=mysqli_query($conexion,$resultado);
-                                $resultado3=mysqli_fetch_array($resultado2,MYSQLI_NUM);
-                                if($resultado2 && mysqli_num_rows($resultado2)>0){
-                                    if(!isset($_COOKIE["".$i.""])){
-                                        echo"<tr>";
-                                        echo"<td><input type='radio' name='cliente' value='".$resultado3[1]."' required></td>";
-                                        echo"<td>".$resultado3[1]."</td>";
-                                        echo"<td >";
-                                            $al="SELECT id_alimento,cantidad FROM pedido WHERE id_cliente=$i && estado ='Espera' ORDER BY id_pedido";
-                                            $al2=mysqli_query($conexion,$al);
-                                            $al3=mysqli_fetch_array($al2,MYSQLI_NUM);   
-                                            while($al3=mysqli_fetch_array($al2)){
-                                                $alimento="SELECT nombre FROM alimento WHERE id_alimento = $al3[0]";
-                                                $alimento2=mysqli_query($conexion,$alimento);
-                                                $alimento3=mysqli_fetch_array($alimento2,MYSQLI_NUM);
-                                                echo $alimento3['0']."<br>"; 
+                        echo"</form action='Sup.php' method='POST'>";
+                            echo"<div class='tablap'>";
+                                /* Tabla donde se agrupan los pedidos de un mismo cliente siempre y cuando estén en espera */
+                                echo"<table id='table'>";
+                                    echo"<tr>";
+                                        echo"<th></th>";
+                                        echo"<th>Cliente</th>";
+                                        echo"<th>Orden</th>";
+                                        echo"<th>Cantidad</th>";
+                                        echo"<th>Estado</th>";
+                                    echo"</tr>";
+                                    for($i=1;$i<=$idP;$i++){
+                                        $resultado="SELECT * FROM pedido WHERE estado ='Espera' && id_cliente=$i ORDER BY id_pedido";
+                                        $resultado2=mysqli_query($conexion,$resultado);
+                                        $resultado3=mysqli_fetch_array($resultado2,MYSQLI_NUM);
+                                        if($resultado2 && mysqli_num_rows($resultado2)>0){
+                                            if(!isset($_COOKIE["".$i.""])){
+                                                echo"<tr>";
+                                                echo"<td><input type='radio' name='cliente' value='".$resultado3[1]."' required></td>";
+                                                echo"<td>".$resultado3[1]."</td>";
+                                                echo"<td >";
+                                                    $al="SELECT id_alimento,cantidad FROM pedido WHERE id_cliente=$i && estado ='Espera' ORDER BY id_pedido";
+                                                    $al2=mysqli_query($conexion,$al);
+                                                    while($al3=mysqli_fetch_array($al2,MYSQLI_NUM)){
+                                                        $alimento="SELECT nombre FROM alimento WHERE id_alimento = $al3[0]";
+                                                        $alimento2=mysqli_query($conexion,$alimento);
+                                                        $alimento3=mysqli_fetch_array($alimento2,MYSQLI_NUM);
+                                                        echo $alimento3['0']."<br>"; 
+                                                    }
+                                                echo"</td>";
+                                                echo"<td>";
+                                                    $cant="SELECT cantidad FROM pedido WHERE estado ='Espera' && id_cliente=$i  ORDER BY id_pedido";
+                                                    $cant2=mysqli_query($conexion,$cant);
+                                                    while($cant3=mysqli_fetch_array($cant2,MYSQLI_NUM)){
+                                                        echo $cant3[0]."<br>";
+                                                    }    
+                                                echo"</td>";
+                                                echo"<td>".$resultado3['6']."</td>";
+                                                echo"</tr>";
+                                                $usuario="SELECT tipo_usuario,usuario FROM cliente WHERE id_cliente = $resultado3[1]";
+                                                $usuario2=mysqli_query($conexion,$usuario);
+                                                $usuario3=mysqli_fetch_array($usuario2,MYSQLI_NUM);
+                                                $tipo=$usuario3[0];
+                                                $usuarioname=$usuario3[1]; 
                                             }
-                                        echo"</td>";
-                                        echo"<td>";
-                                            $cant="SELECT cantidad FROM pedido WHERE estado ='Espera' && id_cliente=$i  ORDER BY id_pedido";
-                                            $cant2=mysqli_query($conexion,$cant);
-                                            $cant3=mysqli_fetch_array($cant2,MYSQLI_NUM);            
-                                            while($cant3=mysqli_fetch_array($cant2)){
-                                                echo $cant3[0]."<br>";
-                                            }    
-                                        echo"</td>";
-                                        echo"<td>".$resultado3['6']."</td>";
-                                        echo"</tr>";
-                                        $usuario="SELECT tipo_usuario,usuario FROM cliente WHERE id_cliente = $ala3[1]";
-                                        $usuario2=mysqli_query($conexion,$usuario);
-                                        $usuario3=mysqli_fetch_array($usuario2,MYSQLI_NUM);
-                                        $tipo=$usuario3[0];
-                                        $usuarioname=$usuario3[1]; 
+                                        }            
                                     }
-                                }            
-                            }
-                        echo"</table>";
-                    echo"</div>";
-                        echo"<div id='esperando'>";
-                    echo"<input type=submit class='buttons' value='Sancionar' name='Sancionar2'>";
-                echo"</div>";
-                echo"<input type=hidden value='ingreso' name='ingreso'>";
-            echo"</form>";
-
-                }
-                else{
-                    echo"No hay pedidos vencidos";
-                }
+                                echo"</table>";
+                            echo"</div>";
+                            echo"<div id='esperando'>";
+                                echo"<input type=submit class='buttons' value='Sancionar' name='Sancionar2'>";
+                            echo"</div>";
+                            echo"<input type=hidden value='ingreso' name='ingreso'>";
+                        echo"</form>";
+                    }
+            else{
+                echo"No hay pedidos vencidos";
+            }
         } 
         /* SI no se pide alertas, se despliega el menú principal */
         else{
@@ -184,8 +180,7 @@
                                             echo"<td >";
                                                 $ida="SELECT id_alimento,cantidad FROM pedido WHERE id_cliente=$i && estado ='Pendiente' ORDER BY id_pedido";
                                                 $ida2=mysqli_query($conexion,$ida);
-                                                $ida3=mysqli_fetch_array($ida2,MYSQLI_NUM);   
-                                                while($ida3=mysqli_fetch_array($ida2)){
+                                                while($ida3=mysqli_fetch_array($ida2,MYSQLI_NUM)){
                                                     $alimento="SELECT nombre FROM alimento WHERE id_alimento = $ida3[0]";
                                                     $alimento2=mysqli_query($conexion,$alimento);
                                                     $alimento3=mysqli_fetch_array($alimento2,MYSQLI_NUM);
@@ -195,8 +190,7 @@
                                             echo"<td>";
                                                 $cant="SELECT cantidad FROM pedido WHERE estado ='Pendiente' && id_cliente=$i  ORDER BY id_pedido";
                                                 $cant2=mysqli_query($conexion,$cant);
-                                                $cant3=mysqli_fetch_array($cant2,MYSQLI_NUM);            
-                                                while($cant3=mysqli_fetch_array($cant2)){
+                                                while($cant3=mysqli_fetch_array($cant2,MYSQLI_NUM)){
                                                     echo $cant3[0]."<br>";
                                                 }    
                                             echo"</td>";
