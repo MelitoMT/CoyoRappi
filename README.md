@@ -18,8 +18,8 @@
 Dentro, escribiremos el path cd xampp/htdocs/CoyoRappi  -  > mysql -u root, tras lo cual escribiremos "CREATE DATABASE Coyo_Rappi". Con esto habremos creado la base de datos, sin embargo falta ocupar el respaldo, por lo que
 escribiremos "exit" y proseguiremos a ingresar la siguiente ruta "mysqldump -u root Coyo_Rappi < DB_Coyo_Rappi.sql" 
 ### _3.Configuraciones generales:_
-* Con el fin de evitar un mal uso del sistema, este viene con un único usuario de tipo "Aministrador" preestablecido con los campos "Coyo_Rappi" y "Aministrador" como usuario y contraseña respectivamente; sin embargo,
-estos se pueden modificar para cumplir los requerimentos del uso que se le vaya a dar, lo que tenemos que hacer es en la consola (Revisar instalación), escribir el siguiente comando "UPDATE administrador SET usuario='usuario deseado' && contraseña= 'contraseña' WHERE usuario=''Coyo_Rappi ".
+* Con el fin de evitar un mal uso del sistema, este viene con un único usuario de tipo "Aministrador" preestablecido con los campos "CoyoAdministrador" y "o{H:k5yqa*" como usuario y contraseña respectivamente; sin embargo,
+estos se pueden modificar para cumplir los requerimentos del uso que se le vaya a dar, lo que tenemos que hacer es en la consola (Revisar instalación), escribir el siguiente comando "UPDATE administrador SET usuario='usuario deseado' && contraseña= 'contraseña' WHERE usuario=''CoyoAdministrador".
 * Como el sistema almacena la fecha y hora de los registros realizados, es recomendable revisar que la zona horaria en la que está configurada MYSQL sea la correcta, para esto escribiremos el comando "SELECT NOW()", si tanto la fecha como la hora coinciden con la
 actual entonces podremos continuar.
  ### _4.Uso (Aministrador):_
