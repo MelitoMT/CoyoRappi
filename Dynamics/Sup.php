@@ -1,4 +1,6 @@
 <?php
+ /*IMPORTANTE: ESTA VARIABE PERMITE VISUALIZACION, SI SE QUITA POR SEGURIDAD, SE NECESITARA ENVIAR LA VARIABLE INGRESO  DESDE FORMULARIO  */
+ $_POST['ingreso']=0;
     echo '<link rel="stylesheet" href="../Style/rappi.css">';
     /* Nav general */
     if(isset($_POST['Cerrar'])){

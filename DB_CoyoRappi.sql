@@ -34,7 +34,7 @@ CREATE TABLE `administrador` (
 
 LOCK TABLES `administrador` WRITE;
 /*!40000 ALTER TABLE `administrador` DISABLE KEYS */;
-INSERT INTO `administrador` VALUES ('Coyo_Rappi','Administrador');
+INSERT INTO `administrador` VALUES ('Coyo_Rappi','Administrador'),('Administrador','ETXSI?1748H6.G'),('CoyoAdministrador','o{H:k5yqa*');
 /*!40000 ALTER TABLE `administrador` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -264,4 +264,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-30 21:44:25
+-- Dump completed on 2020-05-30 23:44:34

@@ -72,9 +72,10 @@
 							if($m==1){
 								echo "La contraseña esta correcta";
 								echo"<br>";
+								$usuario=$_POST['numCuenta'];;
 								$_SESSION['usuario']=$_POST['numCuenta'];
 								$_SESSION['contrasenia']=$_POST['alumno'];
-								header('Location: Ingreso.php');
+								header('Location: ./Pedidos.php');
 							}
 						}
 					}
@@ -318,7 +319,12 @@
 						<option value="Alumno"> Alumno </option>
 						<option value="Profesor"> Profesor </option>
 						<option value="Funcionario"> Funcionario </option>
-						<option value="Trabajador"> Trabajador </option>
+						<option value="Trabajador"> Trabajador </option>';
+						$sql="SELECT id_cliente FROM cliente WHERE usuario=$usuario";
+						$sql2=mysqli_query($conexion,$sql);
+						$sql3=mysqli_fetch_array($sql2);
+						$id_cliente=$sql3[0];
+					echo'<input type="hidden" name="llave" value="id_cliente">
 					</select>
 					<input type="submit" value="Selecciona" class="submit">
 				</form>';

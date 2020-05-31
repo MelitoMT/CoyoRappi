@@ -1,4 +1,5 @@
 <?php
+    /*IMPORTANTE: ESTA VARIABE PERMITE VISUALIZACION, SI SE QUITA POR SEGURIDAD, SE NECESITARA ENVIAR EL ID_CLIENTE DESDE FORMULARIO  */
     $id_cliente=2;
     echo '<link rel="stylesheet" href="../Style/rappi.css">';    
     if(isset($id_cliente)){
