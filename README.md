@@ -4,7 +4,7 @@
 :turtle:
 ## _Integrantes_
 * Melo Téllez Mariana Itzel
-* Perez Natalia
+* Perez Romero Natalia Abigail
 * Zahuantitla Vázquez José Antonio
 ## _Instalación del proyecto:_
 ### _1.Requerimentos generales:_
