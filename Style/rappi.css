@@ -36,6 +36,11 @@
   text-align: center;
 
 }
+#adm{
+  padding: 5px 20px;
+  background:  linear-gradient(rgb(0, 41, 131), rgb(0, 0, 0));
+  color: rgb(255, 255, 255);
+}
 #es:hover{
   background-color:(rgb(192, 191, 190));
 }
@@ -112,6 +117,28 @@
 #container {
   padding: 2px 30px;
 }
+.table2{
+  width: 300px;
+}
+.table2 th {
+  padding-top: 10px;
+  padding-bottom: 10spx;
+  text-align: center;
+  background: linear-gradient(rgb(0, 41, 131), rgb(0, 0, 0));
+  color: white;
+}
+.table2 tr:nth-child(even){
+  background-color: #afafaf;
+}
+.table2 tr:nth-child(odd){
+  background-color: #e9e5e5;
+}
+.table2 tr:hover {
+  background: linear-gradient(rgb(205, 206, 207), rgb(77, 76, 76));
+  color: white;
+}
+
+
 .buttons{
   background: linear-gradient(rgb(255, 138, 5), rgb(230, 197, 16));
   color: white;

@@ -1,8 +1,15 @@
 <?php
     /*IMPORTANTE: ESTA VARIABE PERMITE VISUALIZACION, SI SE QUITA POR SEGURIDAD, SE NECESITARA ENVIAR EL ID_CLIENTE DESDE FORMULARIO  */
     $id_cliente=2;
-    echo '<link rel="stylesheet" href="../Style/rappi.css">';    
-    if(isset($id_cliente)){
+    echo '<link rel="stylesheet" href="../Style/rappi.css">'; 
+    if(isset($_POST['Cerrar Sesión'])&&$_POST['Cerrar Sesión']!=''){
+        session_start();
+        session_unset();
+        session_destroy();
+        header("Location:../Templates/CoyoRappi.html");
+    }   
+    elseif(isset($id_cliente)){
+        session_start();
         include './AbrirConex.php';
         /* Si se cancela, vacìa la variable cantidad para que no entre en el condicional */
         if(isset($_POST['Cancelar'])){
@@ -93,6 +100,9 @@
                 mysqli_close($conexion);
             }
         }
+        echo"<form action='Pedidos.php' method='post'>
+            <input type='submit' value='Cerrar Sesión' name='Cerrar Sesión'>
+        </form>";
     }
     else{
         header("Location:cd../Templates/Coyo_Rappi.html");
